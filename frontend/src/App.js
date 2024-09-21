@@ -1,25 +1,34 @@
-import { useState } from "react";
+import { useState, createContext } from "react";
 import Form from "./form";
+import Board from "./board";
+import Sidebar from "./sidebar";
+import "./App.css";
+
+export const boardContext = createContext();
 
 function App() {
-  const [pokedex, setPokedex] = useState({});
+  const [pokedex, setPokedex] = useState({
+    regions: [],
+  });
   const [openForm, setOpenForm] = useState(true);
-  
-  const view = () => {
-    console.log(pokedex);
-  };
 
-  const reset = () => {
-    setPokedex({});
-    setOpenForm(true);
+  const contextValue = {
+    pokedex,
+    setPokedex,
+    setOpenForm,
   };
 
   return (
-    <div>
-      {openForm && <Form setPokedex={setPokedex} setOpenForm={setOpenForm} />}
-      <button onClick={reset}>Reset</button>
-      <button onClick={view}>View Pokedex</button>
-    </div>
+    <boardContext.Provider value={contextValue}>
+      {openForm ? (
+        <Form />
+      ) : (
+        <div className="app-display">
+          <Sidebar />
+          <Board />
+        </div>
+      )}
+    </boardContext.Provider>
   );
 }
 
