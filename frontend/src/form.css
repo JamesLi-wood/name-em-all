@@ -10,7 +10,8 @@
 }
 
 form {
-  border: 2px solid black;
+  background-image: url("./assets/grass.png");
+  border: 2px solid darkgreen;
   display: flex;
   flex-direction: column;
   width: 80%;
