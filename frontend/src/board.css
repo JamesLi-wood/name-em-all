@@ -1,0 +1,14 @@
+.board-display {
+  overflow-y: scroll;
+}
+
+.region-pokemons {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.region-pokemons > div {
+  border: 1px solid black;
+  height: 6rem;
+  width: 6rem;
+}
