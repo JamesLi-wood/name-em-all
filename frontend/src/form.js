@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { boardContext } from "./App";
 import regions from "./region";
 import "./form.css";
 
-const Form = ({ setPokedex, setOpenForm }) => {
+const Form = () => {
   const [region, setRegion] = useState({
     Kanto: false,
     Jhoto: false,
@@ -15,15 +16,20 @@ const Form = ({ setPokedex, setOpenForm }) => {
     Hisui: false,
     Paldea: false,
   });
+  const { setPokedex, setOpenForm } = useContext(boardContext);
   const allRegions = Object.keys(region);
 
   const handleAction = (e) => {
     e.preventDefault();
     const checked = Object.keys(region).filter((key) => region[key] === true);
+    setPokedex((prevState) => ({
+      ...prevState,
+      ["regions"]: checked,
+    }));
 
     checked.forEach((key) => {
       const regionData = regions[key];
-      const limit = regionData.higher - regionData.lower + 1;
+      const limit = regionData.amount;
 
       fetch(
         `https://pokeapi.co/api/v2/pokemon?offset=${
