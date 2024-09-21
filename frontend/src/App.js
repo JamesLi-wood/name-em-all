@@ -1,7 +1,5 @@
 import { useState, createContext } from "react";
-import Form from "./form";
-import Board from "./board";
-import Sidebar from "./sidebar";
+import { Form, Board, Sidebar } from "./components/index";
 import "./App.css";
 
 export const boardContext = createContext();
