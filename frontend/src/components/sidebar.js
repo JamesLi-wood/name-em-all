@@ -19,16 +19,11 @@ const Sidebar = () => {
   const handleChange = (e) => {
     if (!pokedex[e.target.value] || e.target.value === "regions") return;
 
-    // return if name is already locked in.
+    if (pokedex[e.target.value].found) return;
 
-    fetch([pokedex[e.target.value].url])
-      .then((res) => res.json())
-      .then((data) => {
-        const pokemonID = data.id;
-        document.getElementById(
-          `pokeID-${pokemonID}`
-        ).style.backgroundImage = `url(${data.sprites.front_default})`;
-      });
+    const pokemon = pokedex[e.target.value];
+    pokemon.found = true;
+    document.getElementById(`pokeID-${pokemon.id}`).src = pokemon.sprite;
 
     e.target.value = "";
   };
