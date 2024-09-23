@@ -27,27 +27,34 @@ const Form = () => {
       ["regions"]: checked,
     }));
 
-    checked.forEach((key) => {
+    checked.forEach(async (key) => {
       const regionData = regions[key];
       const limit = regionData.amount;
 
-      fetch(
-        `https://pokeapi.co/api/v2/pokemon?offset=${
-          regionData.lower - 1
-        }&limit=${limit}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          const result = data.results.reduce((acc, pokemon) => {
-            acc[pokemon.name] = pokemon;
-            return acc;
-          }, {});
+      const pokemonData = {};
+      const fetchPromises = [];
+      for (let i = 0; i < limit; i++) {
+        fetchPromises.push(
+          fetch(`https://pokeapi.co/api/v2/pokemon/${i + regionData.lower}`)
+            .then((res) => res.json())
+            .then((data) => {
+              const name = data.species.name;
+              pokemonData[name] = {
+                name: name,
+                id: i + regionData.lower,
+                sprite: data.sprites.front_default,
+                found: false,
+              };
+            })
+        );
+      }
 
-          setPokedex((prevState) => ({
-            ...prevState,
-            ...result,
-          }));
-        });
+      await Promise.all(fetchPromises);
+
+      setPokedex((prevState) => ({
+        ...prevState,
+        ...pokemonData,
+      }));
     });
 
     setOpenForm(false);
