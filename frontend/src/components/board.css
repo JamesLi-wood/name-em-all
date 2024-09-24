@@ -1,6 +1,7 @@
 .board-display {
   overflow-y: scroll;
   background-color: rgb(50, 50, 50);
+  width: 100%;
 }
 
 .board-display > div {
