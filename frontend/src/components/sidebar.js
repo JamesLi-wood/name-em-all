@@ -3,8 +3,10 @@ import { boardContext } from "../App";
 import "./sidebar.css";
 
 const Sidebar = () => {
-  const { pokedex, setPokedex, setOpenForm } = useContext(boardContext);
+  const { pokedex, setPokedex, setOpenForm, pkmnCount, setPkmnCount } =
+    useContext(boardContext);
 
+  // Testing purposes
   const view = () => {
     console.log(pokedex);
   };
@@ -13,17 +15,17 @@ const Sidebar = () => {
     setPokedex({
       regions: [],
     });
+    setPkmnCount(0);
     setOpenForm(true);
   };
 
   const handleChange = (e) => {
-    if (!pokedex[e.target.value] || e.target.value === "regions") return;
+    const pokemon = pokedex.pokemonData[e.target.value];
+    if (!pokemon || pokemon.found) return;
 
-    if (pokedex[e.target.value].found) return;
-
-    const pokemon = pokedex[e.target.value];
     pokemon.found = true;
     document.getElementById(`pokeID-${pokemon.id}`).src = pokemon.sprite;
+    setPkmnCount((prevState) => prevState + 1);
 
     e.target.value = "";
   };
@@ -32,7 +34,10 @@ const Sidebar = () => {
     <div className="sidebar">
       <button onClick={reset}>Reset</button>
       <button onClick={view}>View Pokedex</button>
-      <input type="text" placeholder="Search" onChange={handleChange} />
+      <div>
+        <div>{`Name all pokemon: ${pkmnCount}/${pokedex.pkmnCount}`}</div>
+        <input className="pokemon-input" type="text" onChange={handleChange} />
+      </div>
     </div>
   );
 };
