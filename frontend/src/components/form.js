@@ -26,10 +26,12 @@ const Form = () => {
       ...prevState,
       ["regions"]: checked,
     }));
+    let pkmnCount = 0;
 
     checked.forEach(async (key) => {
       const regionData = regions[key];
       const limit = regionData.amount;
+      pkmnCount += limit;
 
       const pokemonData = {};
       const fetchPromises = [];
@@ -53,7 +55,8 @@ const Form = () => {
 
       setPokedex((prevState) => ({
         ...prevState,
-        ...pokemonData,
+        pokemonData,
+        pkmnCount: pkmnCount,
       }));
     });
 
