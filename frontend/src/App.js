@@ -9,11 +9,14 @@ function App() {
     regions: [],
   });
   const [openForm, setOpenForm] = useState(true);
+  const [pkmnCount, setPkmnCount] = useState(0);
 
   const contextValue = {
     pokedex,
     setPokedex,
     setOpenForm,
+    pkmnCount,
+    setPkmnCount,
   };
 
   return (
