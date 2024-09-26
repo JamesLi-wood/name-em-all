@@ -1,8 +1,8 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  background-color: gray;
   padding: 0 1rem;
+
 }
 
 .sidebar > button,
@@ -13,8 +13,8 @@
   height: 3rem;
   border-radius: 2rem 0 2rem 0;
   font-size: 1.25rem;
-  color: white;
-  background-color: green;
+  color: gold;
+  background-color: purple;
 }
 
 .sidebar > div {
@@ -33,4 +33,8 @@
   padding: 0.25rem 0.25rem 0.25rem 1.25rem;
   font-size: 1.25rem;
   border-radius: 2rem 0 2rem 0;
+}
+
+.reveal {
+  border: 1px solid red !important;
 }

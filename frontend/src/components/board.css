@@ -1,27 +1,32 @@
 .board-display {
   overflow-y: scroll;
-  background-color: rgb(50, 50, 50);
   width: 100%;
 }
 
 .board-display > div {
-  border: 1px solid white;
-  color: white;
+  color: gold;
   margin: 1rem;
 }
 
 .board-display > div > div:first-child {
+  display: inline-block;
+  background-color: rgb(50, 50, 50);
+  border-top-right-radius: 99rem;
   font-size: 2rem;
+  padding: 1rem 3rem 1rem 1rem;
 }
 
 .region-pokemons {
+  background-color: rgb(50, 50, 50);
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 1rem;
   gap: 10px;
 }
 
 .region-pokemons > img {
+  border: 1px solid transparent;
   height: 6rem;
   width: 6rem;
 }
