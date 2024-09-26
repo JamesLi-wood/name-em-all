@@ -8,6 +8,8 @@ body,
 
 .app-display {
   display: flex;
+  flex-direction: row;
   position: relative;
   height: 100vh;
+  background-image: url("./assets/background.png");
 }
