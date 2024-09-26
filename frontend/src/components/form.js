@@ -55,7 +55,10 @@ const Form = () => {
 
       setPokedex((prevState) => ({
         ...prevState,
-        pokemonData,
+        pokemonData: {
+          ...prevState.pokemonData,
+          ...pokemonData,
+        },
         pkmnCount: pkmnCount,
       }));
     });
