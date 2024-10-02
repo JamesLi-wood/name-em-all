@@ -19,33 +19,42 @@ const Regions = ({ setRole }) => {
   const allRegions = Object.keys(region);
   const { setPokedex, setOpenForm } = useContext(boardContext);
 
-  const handleAction = () => {
+  const handleAction = async (e) => {
+    e.preventDefault();
+    
     const regionsChecked = Object.keys(region).filter(
       (key) => region[key] === true
     );
     const pokemonData = {};
     let pokeCount = 0;
 
-    regionsChecked.forEach(async (key) => {
+    const regionPromises = regionsChecked.map(async (key) => {
       const regionData = regions[key];
       const limit = regionData.amount;
       pokeCount += limit;
 
+      const pokemonPromises = [];
       for (let i = 0; i < limit; i++) {
-        const res = await fetch(
-          `https://pokeapi.co/api/v2/pokemon/${i + regionData.lower}`
+        pokemonPromises.push(
+          fetch(
+            `https://pokeapi.co/api/v2/pokemon/${i + regionData.lower}`
+          ).then((res) => res.json())
         );
-        const data = await res.json();
-        const name = data.species.name;
+      }
 
+      const pokemonDetails = await Promise.all(pokemonPromises);
+      pokemonDetails.forEach((data) => {
+        const name = data.species.name;
         pokemonData[name] = {
           name: name,
-          id: i + regionData.lower,
+          id: data.id,
           sprite: data.sprites.front_default,
           found: false,
         };
-      }
+      });
     });
+
+    await Promise.all(regionPromises);
 
     setPokedex((prevState) => ({
       ...prevState,
