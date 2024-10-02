@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { boardContext } from "../App";
-import regions from "../utils/region";
 import "./sidebar.css";
 
 const Sidebar = () => {
@@ -14,7 +13,9 @@ const Sidebar = () => {
 
   const reset = () => {
     setPokedex({
+      pokemonData: {},
       regions: [],
+      pokeType: null,
       pkmnCount: -1,
     });
     setPkmnCount(0);
@@ -22,34 +23,27 @@ const Sidebar = () => {
   };
 
   const reveal = () => {
-    pokedex.regions.map((region) => {
-      const pokemonRegion = regions[region];
+    const pokemons = Object.values(pokedex.pokemonData);
 
-      for (let i = 0; i < pokemonRegion.amount; i++) {
-        const id = pokemonRegion.lower + i;
-        const doc = document.getElementById(`pokeID-${id}`);
+    pokemons.forEach((pokemon) => {
+      const id = pokemon.id;
+      const doc = document.getElementById(`pokeID-${id}`);
 
-        if (!doc.classList.contains("found")) {
-          doc.classList.add("reveal");
-          doc.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
-        }
+      if (!doc.classList.contains("found")) {
+        doc.classList.add("reveal");
+        doc.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
       }
     });
-
-    setPokedex((prevState) => ({
-      ...prevState,
-      pokemonData: {},
-    }));
   };
 
   const handleChange = (e) => {
     const pokemon = pokedex.pokemonData[e.target.value];
     if (!pokemon || pokemon.found) return;
 
-    pokemon.found = true;
     const doc = document.getElementById(`pokeID-${pokemon.id}`);
     doc.src = pokemon.sprite;
     doc.classList.add("found");
+    pokemon.found = true;
     setPkmnCount((prevState) => prevState + 1);
 
     e.target.value = "";
