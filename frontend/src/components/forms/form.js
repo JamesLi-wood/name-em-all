@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Regions from "./forms/regions";
-import Types from "./forms/types";
+import Regions from "./regions";
+import Types from "./types";
 import "./form.css";
 
 const formComponents = {
