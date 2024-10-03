@@ -4,67 +4,50 @@ import regions from "../utils/region";
 import mystery from "../assets/question-mark.png";
 import "./board.css";
 
+const PokemonBoard = ({ title, pokemonIds }) => {
+  return (
+    <div className={`${title}-board`}>
+      <div>{title}</div>
+      <div className="region-pokemons">
+        {pokemonIds.map((id) => {
+          return (
+            <img id={`pokeID-${id}`} src={mystery} key={id} alt="pokemon" />
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
 const Board = () => {
   const { pokedex } = useContext(boardContext);
 
-  const renderItems = () => {
-    const elems = [];
-
-    // Render the type board
-    if (pokedex.pokeType !== null) {
-      const pokemons = Object.values(pokedex.pokemonData).sort(
-        (a, b) => a.id - b.id
+  const renderRegions = () => {
+    return pokedex.regions.map((region) => {
+      const startId = regions[region].lower;
+      const pokemonIds = Array.from(
+        { length: regions[region].amount },
+        (_, idx) => startId + idx
       );
 
-      const dummy = [];
-      pokemons.map((pokemon) => {
-        dummy.push(
-          <img
-            id={`pokeID-${pokemon.id}`}
-            src={mystery}
-            key={pokemon.id}
-            alt="pokemon"
-          />
-        );
-      });
-
-      elems.push(
-        <div className="type-board">
-          <div>{pokedex.pokeType}</div>
-          <div className="region-pokemons">{dummy}</div>
-        </div>
-      );
-
-      // Render the region board
-    } else {
-      pokedex.regions.map((region) => {
-        const pokeId = regions[region].lower - 1;
-
-        const dummy = [];
-        for (let i = 1; i <= regions[region].amount; i++) {
-          dummy.push(
-            <img
-              id={`pokeID-${pokeId + i}`}
-              src={mystery}
-              key={pokeId + i}
-              alt="pokemon"
-            />
-          );
-        }
-
-        elems.push(
-          <div className={`${region}-board`}>
-            <div>{region}</div>
-            <div className="region-pokemons">{dummy}</div>
-          </div>
-        );
-      });
-    }
-
-    return elems;
+      return <PokemonBoard title={region} pokemonIds={pokemonIds} />;
+    });
   };
 
-  return <div className="board-display">{renderItems()}</div>;
+  const renderType = () => {
+    const pokemons = Object.values(pokedex.pokemonData).sort(
+      (a, b) => a.id - b.id
+    );
+    const pokemonIds = pokemons.map((pokemon) => pokemon.id);
+
+    return <PokemonBoard title={pokedex.pokeType} pokemonIds={pokemonIds} />;
+  };
+
+  return (
+    <div className="board-display">
+      {pokedex.pokeType ? renderType() : renderRegions()}
+    </div>
+  );
 };
 
 export default Board;
