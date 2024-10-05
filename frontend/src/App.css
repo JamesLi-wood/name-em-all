@@ -13,3 +13,9 @@ body,
   height: 100vh;
   background-image: url("./assets/background.png");
 }
+
+@media (max-width: 750px) {
+  .app-display {
+    flex-direction: column;
+  }
+}
