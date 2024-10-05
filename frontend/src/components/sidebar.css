@@ -2,11 +2,13 @@
   display: flex;
   flex-direction: column;
   padding: 0 1rem;
-
 }
 
 .sidebar > button,
 .sidebar > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
   cursor: pointer;
   margin: 1rem 0;
@@ -37,4 +39,27 @@
 
 .reveal {
   border: 1px solid red !important;
+}
+
+@media (max-width: 750px) {
+  .sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 1rem;
+    margin: 1rem 0rem;
+  }
+
+  .sidebar > * {
+    flex: 1 1 auto;
+  }
+
+  .sidebar > button,
+  .sidebar > div {
+    margin: 0;
+  }
+
+  .sidebar > button {
+    padding: 0rem 2rem;
+  }
 }
