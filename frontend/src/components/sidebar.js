@@ -36,17 +36,14 @@ const Sidebar = () => {
     useContext(boardContext);
   const [endTimer, setEndTimer] = useState(false);
 
-  // Testing purposes
-  const view = () => {
-    console.log(pokedex);
-  };
-
   const reset = () => {
     setPokedex({
+      mode: {
+        name: null,
+        type: null,
+      },
       pokemonData: {},
-      regions: [],
-      pokeType: null,
-      pkmnCount: -1,
+      pkmnCount: 0,
     });
     setPkmnCount(0);
     setOpenForm(true);
@@ -86,19 +83,26 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar">
-      <div>
-        <div>{`Name all pokemon: ${pkmnCount}/${pokedex.pkmnCount}`}</div>
-        <input className="pokemon-input" type="text" onChange={handleChange} />
-      </div>
-      <button onClick={reveal}>Reveal</button>
-      <button onClick={reset}>Reset</button>
-      <button onClick={view}>View Pokedex</button>
-      <Timer endTimer={endTimer} />
-      {pokedex.pkmnCount === pkmnCount && (
-        <div>Congratulations, you named them all! </div>
+    <>
+      {pokedex.mode.name !== "guess" && (
+        <div className="sidebar">
+          <div>
+            <div>{`Name all pokemon: ${pkmnCount}/${pokedex.pkmnCount}`}</div>
+            <input
+              className="pokemon-input"
+              type="text"
+              onChange={handleChange}
+            />
+          </div>
+          <button onClick={reveal}>Reveal</button>
+          <button onClick={reset}>Reset</button>
+          <Timer endTimer={endTimer} />
+          {pokedex.pkmnCount === pkmnCount && (
+            <div>Congratulations, you named them all! </div>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
