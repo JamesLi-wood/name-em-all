@@ -1,14 +1,16 @@
 .board-display {
+  position: relative;
   overflow-y: scroll;
   width: 100%;
+  height: 100%;
 }
 
-.board-display > div {
+.board {
   color: gold;
   margin: 1rem;
 }
 
-.board-display > div > div:first-child {
+.board > div:first-child {
   display: inline-block;
   background-color: rgb(50, 50, 50);
   border-top-right-radius: 99rem;
@@ -29,4 +31,53 @@
   border: 1px solid transparent;
   height: 6rem;
   width: 6rem;
+}
+
+.guess-wrapper {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.guess-board {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(50, 50, 50);
+  font-size: 1.25rem;
+  color: gold;
+  padding: 1rem;
+}
+
+.guess-board > div:first-child {
+  text-align: center;
+}
+
+.guessing-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.guessing-container > input {
+  outline: none;
+  border: none;
+  margin: 1rem 0;
+  padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+  font-size: 1.25rem;
+}
+
+.guess-board > button,
+.guessing-container > button {
+  border: none;
+  cursor: pointer;
+  height: 2.5rem;
+  border-radius: 2rem 0 2rem 0;
+  font-size: 1.25rem;
+  color: gold;
+  background-color: purple;
+  margin: 0.5rem 0;
 }
