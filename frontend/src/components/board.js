@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef, useState } from "react";
 import { boardContext } from "../App";
 import regions from "../utils/region";
 import mystery from "../assets/question-mark.png";
@@ -6,7 +6,7 @@ import "./board.css";
 
 const PokemonBoard = ({ title, pokemonIds }) => {
   return (
-    <div className={`${title}-board`}>
+    <div className="board">
       <div>{title}</div>
       <div className="region-pokemons">
         {pokemonIds.map((id) => {
@@ -19,11 +19,58 @@ const PokemonBoard = ({ title, pokemonIds }) => {
   );
 };
 
+const RenderGuess = () => {
+  const [guessCounter, setGuessCounter] = useState(0);
+  const { pokedex, setOpenForm } = useContext(boardContext);
+  const inputRef = useRef(null);
+
+  const validate = () => {
+    const inputName = inputRef.current.value;
+    const currentName = pokedex.pokemonData[guessCounter].name;
+
+    if (inputName === currentName) {
+      setGuessCounter((prevState) => prevState + 1);
+      inputRef.current.value = "";
+      console.log("Correct");
+    } else {
+      console.log("Wrong");
+    }
+  };
+
+  const handleEnterPress = (e) => {
+    if (e.key === "Enter") {
+      validate();
+    }
+  };
+
+  return (
+    <div className="guess-wrapper">
+      <div className="guess-board">
+        {guessCounter === 1025 ? (
+          <div>Congratulations! You sucessfully named them all</div>
+        ) : (
+          <>
+            <div>Guess the pokemon</div>
+            <img src={pokedex.pokemonData[guessCounter].sprite} alt="pokemon" />
+            <div>{`Correctly Guessed: ${guessCounter}`}</div>
+            <div className="guessing-container">
+              <input type="text" ref={inputRef} onKeyDown={handleEnterPress} />
+              <button onClick={validate}>Enter</button>
+            </div>
+          </>
+        )}
+
+        <button onClick={() => setOpenForm(true)}>Back</button>
+      </div>
+    </div>
+  );
+};
+
 const Board = () => {
   const { pokedex } = useContext(boardContext);
 
   const renderRegions = () => {
-    return pokedex.regions.map((region) => {
+    return pokedex.mode.type.map((region) => {
       const startId = regions[region].lower;
       const pokemonIds = Array.from(
         { length: regions[region].amount },
@@ -40,14 +87,23 @@ const Board = () => {
     );
     const pokemonIds = pokemons.map((pokemon) => pokemon.id);
 
-    return <PokemonBoard title={pokedex.pokeType} pokemonIds={pokemonIds} />;
+    return <PokemonBoard title={pokedex.mode.type} pokemonIds={pokemonIds} />;
   };
 
-  return (
-    <div className="board-display">
-      {pokedex.pokeType ? renderType() : renderRegions()}
-    </div>
-  );
+  const renderContent = () => {
+    switch (pokedex.mode.name) {
+      case "type":
+        return renderType();
+      case "regions":
+        return renderRegions();
+      case "guess":
+        return <RenderGuess />;
+      default:
+        return null;
+    }
+  };
+
+  return <div className="board-display">{renderContent()}</div>;
 };
 
 export default Board;
