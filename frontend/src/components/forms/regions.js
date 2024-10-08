@@ -58,8 +58,11 @@ const Regions = ({ setRole }) => {
 
     setPokedex((prevState) => ({
       ...prevState,
+      mode: {
+        name: "regions",
+        type: regionsChecked,
+      },
       pokemonData: pokemonData,
-      ["regions"]: regionsChecked,
       pkmnCount: pokeCount,
     }));
     setOpenForm(false);
