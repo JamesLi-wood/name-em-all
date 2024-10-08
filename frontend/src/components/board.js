@@ -74,7 +74,9 @@ const Board = () => {
         (_, idx) => startId + idx
       );
 
-      return <PokemonBoard title={region} pokemonIds={pokemonIds} />;
+      return (
+        <PokemonBoard key={region} title={region} pokemonIds={pokemonIds} />
+      );
     });
   };
 
@@ -84,7 +86,13 @@ const Board = () => {
     );
     const pokemonIds = pokemons.map((pokemon) => pokemon.id);
 
-    return <PokemonBoard title={pokedex.mode.type} pokemonIds={pokemonIds} />;
+    return (
+      <PokemonBoard
+        key={pokedex.mode.type}
+        title={pokedex.mode.type}
+        pokemonIds={pokemonIds}
+      />
+    );
   };
 
   const renderContent = () => {
