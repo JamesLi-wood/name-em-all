@@ -31,9 +31,6 @@ const RenderGuess = () => {
     if (inputName === currentName) {
       setGuessCounter((prevState) => prevState + 1);
       inputRef.current.value = "";
-      console.log("Correct");
-    } else {
-      console.log("Wrong");
     }
   };
 
