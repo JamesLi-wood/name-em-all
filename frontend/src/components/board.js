@@ -67,7 +67,7 @@ const Board = () => {
   const { pokedex } = useContext(boardContext);
 
   const renderRegions = () => {
-    return pokedex.mode.type.map((region) => {
+    return pokedex.regions.map((region) => {
       const startId = regions[region].lower;
       const pokemonIds = Array.from(
         { length: regions[region].amount },
@@ -88,15 +88,15 @@ const Board = () => {
 
     return (
       <PokemonBoard
-        key={pokedex.mode.type}
-        title={pokedex.mode.type}
+        key={pokedex.type}
+        title={pokedex.type}
         pokemonIds={pokemonIds}
       />
     );
   };
 
   const renderContent = () => {
-    switch (pokedex.mode.name) {
+    switch (pokedex.mode) {
       case "type":
         return renderType();
       case "regions":

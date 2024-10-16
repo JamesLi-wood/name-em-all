@@ -54,10 +54,8 @@ const Types = ({ setRole }) => {
 
     setPokedex((prevState) => ({
       ...prevState,
-      mode: {
-        name: "type",
-        type: type,
-      },
+      mode: "type",
+      type: type,
       pokemonData: pokemonData,
       pkmnCount: pokeCount,
     }));

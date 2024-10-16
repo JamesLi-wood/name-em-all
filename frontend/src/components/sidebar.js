@@ -38,10 +38,9 @@ const Sidebar = () => {
 
   const reset = () => {
     setPokedex({
-      mode: {
-        name: null,
-        type: null,
-      },
+      mode: null,
+      type: null,
+      regions: [],
       pokemonData: {},
       pkmnCount: 0,
     });
@@ -84,7 +83,7 @@ const Sidebar = () => {
 
   return (
     <>
-      {pokedex.mode.name !== "guess" && (
+      {pokedex.mode !== "guess" && (
         <div className="sidebar">
           <div>
             <div>{`Name all pokemon: ${pkmnCount}/${pokedex.pkmnCount}`}</div>

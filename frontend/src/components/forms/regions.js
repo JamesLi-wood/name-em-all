@@ -21,7 +21,7 @@ const Regions = ({ setRole }) => {
 
   const handleAction = async (e) => {
     e.preventDefault();
-    
+
     const regionsChecked = Object.keys(region).filter(
       (key) => region[key] === true
     );
@@ -58,10 +58,8 @@ const Regions = ({ setRole }) => {
 
     setPokedex((prevState) => ({
       ...prevState,
-      mode: {
-        name: "regions",
-        type: regionsChecked,
-      },
+      mode: "regions",
+      regions: regionsChecked,
       pokemonData: pokemonData,
       pkmnCount: pokeCount,
     }));

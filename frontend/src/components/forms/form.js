@@ -40,10 +40,7 @@ const Form = () => {
     setOpenForm(false);
     setPokedex((prevState) => ({
       ...prevState,
-      mode: {
-        name: "guess",
-        type: "guess",
-      },
+      mode: "guess",
       pokemonData: pokemonData,
     }));
   };
