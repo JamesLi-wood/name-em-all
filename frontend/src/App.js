@@ -6,10 +6,9 @@ export const boardContext = createContext();
 
 function App() {
   const [pokedex, setPokedex] = useState({
-    mode: {
-      name: null,
-      type: null,
-    },
+    mode: null,
+    type: null,
+    regions: [],
     pokemonData: {},
     pkmnCount: 0,
   });
