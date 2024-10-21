@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import { boardContext } from "../App";
-import regions from "../utils/region";
+import pokeRegions from "../utils/pokeRegions";
 import mystery from "../assets/question-mark.png";
 import "./board.css";
 
@@ -68,9 +68,9 @@ const Board = () => {
 
   const renderRegions = () => {
     return pokedex.regions.map((region) => {
-      const startId = regions[region].lower;
+      const startId = pokeRegions[region].lower;
       const pokemonIds = Array.from(
-        { length: regions[region].amount },
+        { length: pokeRegions[region].amount },
         (_, idx) => startId + idx
       );
 
@@ -81,23 +81,18 @@ const Board = () => {
   };
 
   const renderType = () => {
-    const pokemons = Object.values(pokedex.pokemonData).sort(
-      (a, b) => a.id - b.id
-    );
-    const pokemonIds = pokemons.map((pokemon) => pokemon.id);
+    return pokedex.types.map((type) => {
+      const pokemonIds = Object.values(pokedex.pokemonData)
+        .filter((pokemon) => pokemon.type === type)
+        .map((data) => data.id);
 
-    return (
-      <PokemonBoard
-        key={pokedex.type}
-        title={pokedex.type}
-        pokemonIds={pokemonIds}
-      />
-    );
+      return <PokemonBoard key={type} title={type} pokemonIds={pokemonIds} />;
+    });
   };
 
   const renderContent = () => {
     switch (pokedex.mode) {
-      case "type":
+      case "types":
         return renderType();
       case "regions":
         return renderRegions();
