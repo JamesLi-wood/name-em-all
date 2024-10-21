@@ -39,7 +39,7 @@ const Sidebar = () => {
   const reset = () => {
     setPokedex({
       mode: null,
-      type: null,
+      types: [],
       regions: [],
       pokemonData: {},
       pkmnCount: 0,
