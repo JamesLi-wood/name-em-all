@@ -28,7 +28,7 @@ form {
   margin-top: 1rem;
 }
 
-.region-selection {
+.option-selection {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   justify-items: center;
@@ -36,7 +36,7 @@ form {
   margin: 1rem 2rem;
 }
 
-.region-selection > div {
+.option-selection > div {
   background-color: lightblue;
   border: 2px solid darkblue;
   border-radius: 1rem 0rem 1rem 0rem;
