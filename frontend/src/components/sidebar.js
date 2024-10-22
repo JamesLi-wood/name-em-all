@@ -53,12 +53,15 @@ const Sidebar = () => {
     setEndTimer(true);
     pokemons.forEach((pokemon) => {
       const id = pokemon.id;
-      const doc = document.getElementById(`pokeID-${id}`);
-
-      if (!doc.classList.contains("found")) {
-        doc.classList.add("reveal");
-        doc.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
-      }
+      const elements = document.querySelectorAll(
+        `[data-id='pokeID-${pokemon.id}']`
+      );
+      elements.forEach((doc) => {
+        if (!doc.classList.contains("found")) {
+          doc.classList.add("reveal");
+          doc.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+        }
+      });
     });
   };
 
@@ -66,15 +69,18 @@ const Sidebar = () => {
     const pokemon = pokedex.pokemonData[e.target.value];
     if (!pokemon || pokemon.found) return;
 
-    const doc = document.getElementById(`pokeID-${pokemon.id}`);
-    doc.src = pokemon.sprite;
-    doc.classList.add("found");
-    pokemon.found = true;
+    const elements = document.querySelectorAll(
+      `[data-id='pokeID-${pokemon.id}']`
+    );
+    elements.forEach((doc) => {
+      doc.src = pokemon.sprite;
+      doc.classList.add("found");
+      pokemon.found = true;
+    });
+
     setPkmnCount((prevState) => {
       const increment = prevState + 1;
-
       if (increment === pokedex.pkmnCount) setEndTimer(true);
-
       return increment;
     });
 
