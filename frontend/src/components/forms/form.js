@@ -110,16 +110,17 @@ const Form = () => {
       });
 
       const pokemonDetails = await Promise.all(pkmnPromises);
-      pokemonDetails.forEach((data) => {
-        const name = data.species.name;
+      pokemonDetails.forEach((pkmn) => {
+        const name = pkmn.species.name;
+        const pkmnType = pkmn.types.map((data) => data.type.name);
 
         if (!pokemonData[name]) {
           pokemonData[name] = {
             name: name,
-            id: data.id,
-            sprite: data.sprites.front_default,
+            id: pkmn.id,
+            sprite: pkmn.sprites.front_default,
             found: false,
-            type: type,
+            type: pkmnType,
           };
           pokeCount++;
         }
