@@ -11,7 +11,12 @@ const PokemonBoard = ({ title, pokemonIds }) => {
       <div className="region-pokemons">
         {pokemonIds.map((id) => {
           return (
-            <img id={`pokeID-${id}`} src={mystery} key={id} alt="pokemon" />
+            <img
+              data-id={`pokeID-${id}`}
+              src={mystery}
+              key={id}
+              alt="pokemon"
+            />
           );
         })}
       </div>
@@ -83,7 +88,9 @@ const Board = () => {
   const renderType = () => {
     return pokedex.types.map((type) => {
       const pokemonIds = Object.values(pokedex.pokemonData)
-        .filter((pokemon) => pokemon.type === type)
+        .filter(
+          (pokemon) => pokemon.type[0] === type || pokemon.type[1] === type
+        )
         .map((data) => data.id);
 
       return <PokemonBoard key={type} title={type} pokemonIds={pokemonIds} />;
