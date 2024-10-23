@@ -1,40 +1,12 @@
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
+import useTimer from "../hooks/useTimer";
 import { boardContext } from "../App";
 import "./sidebar.css";
-
-const Timer = ({ endTimer }) => {
-  const [time, setTime] = useState(0);
-
-  useEffect(() => {
-    let timeIncrement;
-    if (!endTimer) {
-      timeIncrement = setInterval(() => {
-        setTime((prevState) => prevState + 1);
-      }, 1000);
-    }
-
-    return () => clearInterval(timeIncrement);
-  }, [endTimer]);
-
-  const formatTime = (time) => {
-    const hours = Math.floor(time / 3600)
-      .toString()
-      .padStart(2, "0");
-    const minutes = Math.floor((time % 3600) / 60)
-      .toString()
-      .padStart(2, "0");
-    const seconds = (time % 60).toString().padStart(2, "0");
-
-    return `${hours}:${minutes}:${seconds}`;
-  };
-
-  return <div>{formatTime(time)}</div>;
-};
 
 const Sidebar = () => {
   const { pokedex, setPokedex, setOpenForm, pkmnCount, setPkmnCount } =
     useContext(boardContext);
-  const [endTimer, setEndTimer] = useState(false);
+  const [formatTime, endTimer] = useTimer();
 
   const reset = () => {
     setPokedex({
@@ -50,7 +22,7 @@ const Sidebar = () => {
 
   const reveal = () => {
     const pokemons = Object.values(pokedex.pokemonData);
-    setEndTimer(true);
+    endTimer();
     pokemons.forEach((pokemon) => {
       const id = pokemon.id;
       const elements = document.querySelectorAll(
@@ -80,7 +52,7 @@ const Sidebar = () => {
 
     setPkmnCount((prevState) => {
       const increment = prevState + 1;
-      if (increment === pokedex.pkmnCount) setEndTimer(true);
+      if (increment === pokedex.pkmnCount) endTimer();
       return increment;
     });
 
@@ -101,7 +73,7 @@ const Sidebar = () => {
           </div>
           <button onClick={reveal}>Reveal</button>
           <button onClick={reset}>Reset</button>
-          <Timer endTimer={endTimer} />
+          <div>{formatTime()}</div>
           {pokedex.pkmnCount === pkmnCount && (
             <div>Congratulations, you named them all! </div>
           )}
