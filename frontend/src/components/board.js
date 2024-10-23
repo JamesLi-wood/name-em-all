@@ -1,28 +1,8 @@
 import { useContext, useRef, useState } from "react";
 import { boardContext } from "../App";
 import pokeRegions from "../utils/pokeRegions";
-import mystery from "../assets/question-mark.png";
+import PokemonBoard from "./pokemonBoard";
 import "./board.css";
-
-const PokemonBoard = ({ title, pokemonIds }) => {
-  return (
-    <div className="board">
-      <div>{title}</div>
-      <div className="region-pokemons">
-        {pokemonIds.map((id) => {
-          return (
-            <img
-              data-id={`pokeID-${id}`}
-              src={mystery}
-              key={id}
-              alt="pokemon"
-            />
-          );
-        })}
-      </div>
-    </div>
-  );
-};
 
 const RenderGuess = () => {
   const [guessCounter, setGuessCounter] = useState(0);
