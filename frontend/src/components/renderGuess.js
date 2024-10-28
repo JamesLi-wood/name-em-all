@@ -1,17 +1,20 @@
 import { useContext, useRef, useState } from "react";
 import { boardContext } from "../App";
+import useCounter from "../hooks/useCounter";
 
 const RenderGuess = () => {
-  const [guessCounter, setGuessCounter] = useState(1024);
+  const [position, setPosition] = useState(0);
+  const [counter, incrementCounter] = useCounter();
   const { pokedex, setOpenForm } = useContext(boardContext);
   const inputRef = useRef(null);
 
   const validate = () => {
     const inputName = inputRef.current.value;
-    const currentName = pokedex.pokemonData[guessCounter].name;
+    const currentName = pokedex.pokemonData[position].name;
 
     if (inputName === currentName) {
-      setGuessCounter((prevState) => prevState + 1);
+      incrementCounter();
+      setPosition((prevState) => prevState + 1);
       inputRef.current.value = "";
     }
   };
@@ -20,17 +23,21 @@ const RenderGuess = () => {
     if (e.key === "Enter") validate();
   };
 
-  const skip = () => {};
+  const skip = () => {
+    setPosition((prevState) => prevState + 1);
+    inputRef.current.value = "";
+  };
+
   return (
     <div className="guess-wrapper">
       <div className="guess-board">
-        {guessCounter === 1025 ? (
-          <div>Congratulations! You sucessfully named them all</div>
+        {position === 1025 ? (
+          <div>{`You have named ${counter} pokemons out of 1025!`}</div>
         ) : (
           <>
             <div>Guess the pokemon</div>
-            <img src={pokedex.pokemonData[guessCounter].sprite} alt="pokemon" />
-            <div>{`Correctly Guessed: ${guessCounter}`}</div>
+            <img src={pokedex.pokemonData[position].sprite} alt="pokemon" />
+            <div>{`Correctly Guessed: ${counter}`}</div>
             <div className="guessing-container">
               <input type="text" ref={inputRef} onKeyDown={handleEnterPress} />
               <button onClick={validate}>Enter</button>
