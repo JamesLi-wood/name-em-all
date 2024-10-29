@@ -40,7 +40,8 @@ const Sidebar = () => {
   };
 
   const handleChange = (e) => {
-    const pokemon = pokedex.pokemonData[e.target.value];
+    const input = e.target.value.toLowerCase();
+    const pokemon = pokedex.pokemonData[input];
     if (!pokemon || pokemon.found) return;
 
     pokemon.found = true;

@@ -9,10 +9,10 @@ const RenderGuess = () => {
   const inputRef = useRef(null);
 
   const validate = () => {
-    const inputName = inputRef.current.value;
+    const input = inputRef.current.value.toLowerCase();
     const currentName = pokedex.pokemonData[position].name;
 
-    if (inputName === currentName) {
+    if (input === currentName) {
       incrementCounter();
       setPosition((prevState) => prevState + 1);
       inputRef.current.value = "";
