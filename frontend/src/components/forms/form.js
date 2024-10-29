@@ -23,7 +23,7 @@ const Form = () => {
     const pokemonData = pokemonDetails.map((pokemon) => ({
       id: pokemon.id,
       name: pokemon.species.name,
-      sprite: pokemon.sprites.front_default,
+      sprite: pokemon.sprites.other["official-artwork"].front_default,
     }));
 
     for (let i = pokemonData.length - 1; i > 0; i--) {
