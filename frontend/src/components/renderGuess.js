@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from "react";
+import { useCounter } from "../hooks";
 import { boardContext } from "../App";
-import useCounter from "../hooks/useCounter";
 
 const RenderGuess = () => {
   const [position, setPosition] = useState(0);

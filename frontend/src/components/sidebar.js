@@ -1,7 +1,6 @@
 import { useContext } from "react";
-import useTimer from "../hooks/useTimer";
+import { useCounter, useTimer } from "../hooks";
 import { boardContext } from "../App";
-import useCounter from "../hooks/useCounter";
 import "./sidebar.css";
 
 const Sidebar = () => {

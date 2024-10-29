@@ -1,4 +1,4 @@
-import useFormOptions from "../../hooks/useFormOptions";
+import { useFormOptions } from "../../hooks";
 import backIcon from "../../assets/back-icon.png";
 
 const FormMode = ({ mode, options, back, handleSubmit }) => {
@@ -14,7 +14,7 @@ const FormMode = ({ mode, options, back, handleSubmit }) => {
         <img className="back" src={backIcon} alt="back" onClick={back} />
         <div>{`Select ${mode}`}</div>
       </div>
-      
+
       <div className="option-selection">
         {options.map((option) => {
           return (

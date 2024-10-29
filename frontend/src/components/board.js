@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import RenderGuess from "./renderGuess";
+import { pokeRegions } from "../utils";
 import { boardContext } from "../App";
-import pokeRegions from "../utils/pokeRegions";
+import RenderGuess from "./renderGuess";
 import PokemonBoard from "./pokemonBoard";
 import "./board.css";
 

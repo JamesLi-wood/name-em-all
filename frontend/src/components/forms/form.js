@@ -1,9 +1,8 @@
 import { useState, useContext } from "react";
+import { pokeRegions, formOptions } from "../../utils";
 import { boardContext } from "../../App";
-import "./form.css";
 import FormMode from "./formMode";
-import pokeRegions from "../../utils/pokeRegions";
-import formOptions from "../../utils/formOptions";
+import "./form.css";
 
 const Form = () => {
   const [view, setView] = useState("Main");
