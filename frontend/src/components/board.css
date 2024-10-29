@@ -18,16 +18,17 @@
   padding: 1rem 3rem 1rem 1rem;
 }
 
-.region-pokemons {
+.pokemon-display {
   background-color: rgb(50, 50, 50);
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
   padding: 1rem;
   gap: 10px;
+  border-radius: 0rem 2rem 2rem 2rem;
 }
 
-.region-pokemons > img {
+.pokemon-display > img {
   border: 1px solid transparent;
   height: 6rem;
   width: 6rem;
