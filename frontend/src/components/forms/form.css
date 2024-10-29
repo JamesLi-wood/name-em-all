@@ -11,7 +11,7 @@
 }
 
 form {
-  border: 2px solid black;
+  border: 2px solid darkblue;
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -30,10 +30,16 @@ form {
 
 .option-selection {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   justify-items: center;
   gap: 0.75rem;
   margin: 1rem 2rem;
+}
+
+@media (max-width: 550px) {
+  .option-selection {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .option-selection > div {
@@ -61,7 +67,8 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
-  background-color: red;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, red 50%, white 50%);
 }
 
 label {
@@ -74,6 +81,9 @@ form > input {
   margin-bottom: 1rem;
   height: 3rem;
   cursor: pointer;
+  background-color: lightblue;
+  border: 2px solid darkblue;
+  border-radius: 0.5rem;
 }
 
 .back {

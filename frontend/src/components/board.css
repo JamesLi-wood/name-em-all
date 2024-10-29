@@ -71,6 +71,11 @@
   font-size: 1.25rem;
 }
 
+.guess-board > img {
+  width: 80%;
+  align-self: center;
+}
+
 .guess-board > button,
 .guessing-container > button {
   border: none;
